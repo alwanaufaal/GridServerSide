@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["Title"] = "Student";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using X.PagedList.Mvc.Core
+@using X.PagedList;
+@using X.PagedList.Mvc.Core.Common;
+@model StudentPaging
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+<h1>Student</h1>
+
+<div class="container">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    Student ID
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    GPA
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var std in Model.Students)
+            {
+                <tr>
+                    <td>
+                        @std.StudentID
+                    </td>
+                    <td>
+                        @std.StudentName
+                    </td>
+                    <td>
+                        @std.StudentGPA
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td colspan="3">
+                    @Html.PagedListPager((IPagedList)Model.Students,
+     page => Url.Action("Student", new { page = page }),
+     PagedListRenderOptions.OnlyShowFivePagesAtATime)
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
